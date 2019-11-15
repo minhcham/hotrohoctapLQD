@@ -240,7 +240,7 @@
                                     m-dropdown-toggle="click">
                                     <a href="#" class="m-nav__link m-dropdown__toggle">
                                         <span class="m-topbar__userpic">
-                                            <img src="img/users/user4.jpg"
+                                            <img src="{{ \App\Models\Taikhoan::getAvatar()['link_anh'] ? './uploads/avatar/'.\App\Models\Taikhoan::getAvatar()['link_anh'] : 'img/users/user4.jpg'}}"
                                                  class="m--img-rounded m--marginless" alt=""/>
                                         </span>
                                         <span class="m-topbar__username m--hide">Nick</span>
@@ -252,7 +252,7 @@
                                                  style="background: url(img/nen.jpg); background-size: cover;">
                                                 <div class="m-card-user m-card-user--skin-dark">
                                                     <div class="m-card-user__pic">
-                                                        <img src="img/users/user4.jpg"
+                                                        <img src="{{ \App\Models\Taikhoan::getAvatar()['link_anh'] ? './uploads/avatar/'.\App\Models\Taikhoan::getAvatar()['link_anh'] : 'img/users/user4.jpg'}}"
                                                              class="m--img-rounded m--marginless" alt=""/>
 
                                                         <!--
@@ -261,7 +261,8 @@
                                                     </div>
                                                     <div class="m-card-user__details">
                                                         <span class="m-card-user__name m--font-weight-500">@if (Session::has('taikhoan')) {{ Session::get('taikhoan')->hoten }}@endif</span>
-                                                        <a href="" class="m-card-user__email m--font-weight-300 m-link">@if (Session::has('taikhoan')) {{ Session::get('taikhoan')->email }}@endif</a>
+                                                        <a href=""
+                                                           class="m-card-user__email m--font-weight-300 m-link">@if (Session::has('taikhoan')) {{ Session::get('taikhoan')->email }}@endif</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -292,7 +293,9 @@
                                                         <form action="{{ route('logout')}}" method="post">
                                                             @csrf
                                                             <li class="m-nav__item">
-                                                                <button class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Đăng xuất</button>
+                                                                <button class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
+                                                                    Đăng xuất
+                                                                </button>
                                                             </li>
                                                         </form>
                                                     </ul>
@@ -323,8 +326,8 @@
                     </button>
                 </div>
             </div>
-        @endif
-        <!-- BEGIN: Left Aside -->
+    @endif
+    <!-- BEGIN: Left Aside -->
         <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
             <i class="la la-close"></i>
         </button>
@@ -481,8 +484,8 @@
         <!-- END: Left Aside -->
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
             <!-- BEGIN: Subheader -->
-            @yield('body')
-            <!-- END: Subheader -->
+        @yield('body')
+        <!-- END: Subheader -->
         </div>
     </div>
     <!-- end:: Body -->
@@ -515,7 +518,7 @@
 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 <script src=" {{ asset('app/js/dashboard.js') }}" type="text/javascript"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $('#message')
             .fadeIn()

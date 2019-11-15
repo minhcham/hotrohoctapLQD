@@ -23,5 +23,6 @@ Route::post('dangky', 'Auth\LoginController@postDangky')->name('dangky');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('canhan', 'HomeController@getContact')->name('get_contact');
+Route::post('canhan', 'HomeController@postContact');
 Route::get('monhoc', 'MonhocController@getMonhoc')->name('get_monhoc');
 Route::post('monhoc', 'MonhocController@postThemmon')->name('add_monhoc');

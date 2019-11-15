@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Session;
 
 class Taikhoan extends Authenticatable
 {
@@ -17,4 +18,7 @@ class Taikhoan extends Authenticatable
      */
     protected $table = 'tbl_taikhoan';
 
+    public static function getAvatar(){
+       return Taikhoan::where('matk',Session::get('taikhoan')['matk'])->select('link_anh')->first();
+    }
 }
