@@ -8,6 +8,7 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public $bindings = [
         \App\Repositories\Mon\MonRepositoryInterface::class => \App\Repositories\Mon\MonRepository::class,
+        \App\Repositories\Image\ImageRepositoryInterface::class => \App\Repositories\Image\ImageRepository::class,
     ];
     /**
      * Register services.

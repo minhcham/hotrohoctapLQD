@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Taikhoan;
+use App\Repositories\Image\ImageRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -12,9 +15,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    private $image;
 
+    public function __construct(ImageRepositoryInterface $image)
+    {
+        $this->image = $image;
     }
 
     /**
@@ -34,8 +39,27 @@ class HomeController extends Controller
     //get thông tin
     public function getContact()
     {
-        $taikhoan = Session::get('taikhoan');
-
+        $taikhoan = Taikhoan::where('matk', Session::get('taikhoan')['matk'])->firstOrFail();
         return view('setting.contact', ['taikhoan' => $taikhoan]);
+    }
+
+    public function postContact(Request $request)
+    {
+        $data = [
+            'hoten' => $request->name,
+            'diachi' => $request->address_1 . '+' . $request->address_2 . '+' . $request->address_3,
+            'sđt' => $request->phone,
+        ];
+
+        if ($request->file('link_anh')) {
+            $uploadAccess = $this->image->saveSingleImage($request->file('link_anh'), 'avatar');
+            $data['link_anh'] = $uploadAccess['raw'];
+        }
+        try {
+            Taikhoan::where('matk', Session::get('taikhoan')['matk'])->update($data);
+        } catch (\Exception $e) {
+            abort(404);
+        }
+        return back()->with('success', 'Cập nhật thành công !');
     }
 }
