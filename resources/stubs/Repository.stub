@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Repositories\{{modelName}};
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
+use App\Repositories\Base\BaseRepository;
+use App\Repositories\{{modelName}}\{{modelName}}RepositoryInterface;
+
+class {{modelName}}Repository extends BaseRepository implements {{modelName}}RepositoryInterface
+{
+    public function getModel() {
+        return \App\Models\{{modelName}}::class;
+    }
+}
